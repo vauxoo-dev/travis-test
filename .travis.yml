@@ -16,7 +16,8 @@ install:
   - wget --version
   - sudo pip install pylint && sudo apt-get update && sudo apt-get install curl
   - curl https://raw.githubusercontent.com/Vauxoo/pylint-conf/master/conf/pylint_vauxoo_light.cfg -o ${HOME}/.pylint.conf
-  - pylint --rcfile=${HOME}/.pylint.conf ${INCLUDE}
+  - echo ${INCLUDE}
+  - cat ${TRAVIS_BUILD_DIR}/modules.profile
 
 script:
-  - exit(0)
+  - pylint --rcfile=${HOME}/.pylint.conf ${INCLUDE}
