@@ -9,11 +9,9 @@ virtualenv:
 install:
   - python -c "import os;print os.environ"
   - ls -la ${TRAVIS_BUILD_DIR}
-  - tree -a ${TRAVIS_BUILD_DIR}
+  # - tree -a ${TRAVIS_BUILD_DIR}
   - git --git-dir=${TRAVIS_BUILD_DIR}/.git branch -a
-  - git --git-dir=${TRAVIS_BUILD_DIR} branch -a
   - git --git-dir=${TRAVIS_BUILD_DIR}/.git remote -v
-  - git --git-dir=${TRAVIS_BUILD_DIR} remote -v
 
 script:
   - exit(0)
