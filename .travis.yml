@@ -10,7 +10,7 @@ install:
   - python -c "import os;print os.environ"
   - git --git-dir=${TRAVIS_BUILD_DIR}/.git fetch origin ${TRAVIS_BRANCH} && git --git-dir=${TRAVIS_BUILD_DIR}/.git diff --name-only ${TRAVIS_BRANCH}.. >${TRAVIS_BUILD_DIR}/diff-name-only.diff
   - cat ${TRAVIS_BUILD_DIR}/diff-name-only.diff
-  - python -c "print 'export INCLUDE=' + ','.join( list( set( [fname_diff.split('/')[0] for fname_diff in open('${TRAVIS_BUILD_DIR}/diff-name-only.diff', 'r').read().strip('\n').split('\n') if '/' in fname_diff] ) ))" >${TRAVIS_BUILD_DIR}/modules.profile
+  - python -c "print 'export INCLUDE=' + ' '.join( list( set( [fname_diff.split('/')[0] for fname_diff in open('${TRAVIS_BUILD_DIR}/diff-name-only.diff', 'r').read().strip('\n').split('\n') if '/' in fname_diff] ) ))" >${TRAVIS_BUILD_DIR}/modules.profile
   - source ${TRAVIS_BUILD_DIR}/modules.profile
   - sudo pip install pylint && sudo apt-get install curl
   - curl https://raw.githubusercontent.com/Vauxoo/pylint-conf/master/conf/pylint_vauxoo_light.cfg -o ${HOME}/.pylint.conf
