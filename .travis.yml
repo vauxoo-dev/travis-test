@@ -10,7 +10,10 @@ install:
   - python -c "import os;print os.environ"
   - git --git-dir=${TRAVIS_BUILD_DIR}/.git fetch origin ${TRAVIS_BRANCH} && git --git-dir=${TRAVIS_BUILD_DIR}/.git diff --name-only ${TRAVIS_BRANCH}.. >${TRAVIS_BUILD_DIR}/diff-name-only.diff
   - cat ${TRAVIS_BUILD_DIR}/diff-name-only.diff
-  - python -c "print ','.join( list( set( [fname_diff.split('/')[0] for fname_diff in open('${TRAVIS_BUILD_DIR}/diff-name-only.diff', 'r').read().strip('\n').split('\n')] ) ))"
+  - python -c "print 'export INCLUDE=' + ','.join( list( set( [fname_diff.split('/')[0] for fname_diff in open('${TRAVIS_BUILD_DIR}/diff-name-only.diff', 'r').read().strip('\n').split('\n') if '/' in fname_diff] ) ))" >${TRAVIS_BUILD_DIR}/modules.profile
+  - source ${TRAVIS_BUILD_DIR}/modules.profile
+  - pip install pylint
+  - pylint ${INCLUDE}
 
 script:
   - exit(0)
